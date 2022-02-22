@@ -33,9 +33,6 @@ describe('Code successfully parses when functional type is passed', () => {
     });
 })
 
-
-
-
 // describe('Allow List', () => {
 
 //     const testParseSetVariable = acorn.parse(setVariable, { ecmaVersion: 2020 });
@@ -51,7 +48,7 @@ describe('Code successfully parses when functional type is passed', () => {
 // });
 
 // describe('Expected code structure', () => {
-
+    
 //     const testParseSetVariable = acorn.parse(setVariable, { ecmaVersion: 2020 });
 //     const resultOfTraversing = traverseAstNodes(testParseSetVariable, "VariableDeclaration");
 //     expect(resultOfTraversing).toBe("This program MUST NOT use a VariableDeclaration.")
