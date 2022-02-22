@@ -1,24 +1,29 @@
-import React from 'react';
-import logo from './logo.svg';
+import { useState } from 'react';
 import './App.css';
 
 function App() {
+  const [submission, setSubmission] = useState<string>("");
+
+  const getInputValue = (event: React.SyntheticEvent) => {
+    const currentText = (event.target as HTMLInputElement).value
+    setSubmission(currentText);
+  }
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        Student Code Explorer
+
       </header>
+      <main>
+        <div>
+          Code Explorer:
+        </div>
+        <form onSubmit={getInputValue}>
+          <textarea value={submission} placeholder="Try your code out here" onChange={getInputValue} />
+          <input type="submit" value="Submit" />
+        </form>
+      </main>
     </div>
   );
 }
