@@ -1,23 +1,26 @@
 import exp from "constants";
-import {basicIfStatement} from "./../helpers/student-code-snippets"
+import { setVariable } from "../helpers/student-code-snippets"
+import { nodeVisit } from "../helpers/methods"
 
-test('student enters code with if statement', () => {
-    // render(<App />);
-    // const linkElement = screen.getByText(/learn react/i);
-    // expect(linkElement).toBeInTheDocument();
-    const stringSample = "hello world";
-    const testBasicFunction = basicIfStatement(stringSample);
-    expect(testBasicFunction).toBe("hello world")
+let acorn = require("acorn");
+
+test('Code HAS specified functionality', () => {
+
+    const testParseSetVariable = acorn.parse(setVariable, { ecmaVersion: 2020 });
+    const resultOfTraversing = nodeVisit(testParseSetVariable, "VariableDeclaration");
+    expect(resultOfTraversing).toBe("Great, you used a VariableDeclaration in your code!")
 });
 
-test('student enters code without if statement', () => {
-    // render(<App />);
-    // const linkElement = screen.getByText(/learn react/i);
-    // expect(linkElement).toBeInTheDocument();
+test('Code MUST HAVE specified functionality', () => {
+
+    const testParseSetVariable = acorn.parse(setVariable, { ecmaVersion: 2020 });
+    const resultOfTraversing = nodeVisit(testParseSetVariable, "VariableDeclaration");
+    expect(resultOfTraversing).toBe("This program MUST use a 'for loop' and a 'variable declaration'.")
 });
 
-test('student enters code with nested methods', () => {
-    // render(<App />);
-    // const linkElement = screen.getByText(/learn react/i);
-    // expect(linkElement).toBeInTheDocument();
+test('Code DOES NOT HAVE specified functionality', () => {
+
+    const testParseSetVariable = acorn.parse(setVariable, { ecmaVersion: 2020 });
+    const resultOfTraversing = nodeVisit(testParseSetVariable, "VariableDeclaration");
+    expect(resultOfTraversing).toBe("This program MUST NOT use a VariableDeclaration.")
 });
