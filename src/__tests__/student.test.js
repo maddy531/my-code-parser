@@ -4,7 +4,7 @@ import { traverseAstNodes } from "../helpers/methods"
 
 let acorn = require("acorn");
 
-describe('Code successfully parses when functional type if passed', () => {
+describe('Code successfully parses when functional type is passed', () => {
     test('Most basic case, setting a variable successfully parses', () => {
 
         const testParseSetVariable = acorn.parse(setVariable, { ecmaVersion: 2020 });
@@ -36,14 +36,21 @@ describe('Code successfully parses when functional type if passed', () => {
 
 
 
-// test('Code MUST HAVE specified functionality', () => {
+// describe('Allow List', () => {
 
 //     const testParseSetVariable = acorn.parse(setVariable, { ecmaVersion: 2020 });
 //     const resultOfTraversing = traverseAstNodes(testParseSetVariable, "VariableDeclaration");
 //     expect(resultOfTraversing).toBe("This program MUST use a 'for loop' and a 'variable declaration'.")
 // });
 
-// test('Code DOES NOT HAVE specified functionality', () => {
+// describe('Deny list', () => {
+
+//     const testParseSetVariable = acorn.parse(setVariable, { ecmaVersion: 2020 });
+//     const resultOfTraversing = traverseAstNodes(testParseSetVariable, "VariableDeclaration");
+//     expect(resultOfTraversing).toBe("This program MUST NOT use a VariableDeclaration.")
+// });
+
+// describe('Expected code structure', () => {
 
 //     const testParseSetVariable = acorn.parse(setVariable, { ecmaVersion: 2020 });
 //     const resultOfTraversing = traverseAstNodes(testParseSetVariable, "VariableDeclaration");
