@@ -1,3 +1,5 @@
+let acorn = require("acorn");
+
 export const traverseAstNodes = (ast, astType) => {
     if (ast.type === astType) {
         return true;
@@ -26,4 +28,33 @@ export const traverseAstNodes = (ast, astType) => {
 
 export const isNode = (node) => {
     return typeof node === 'object';
+}
+// Next step would be to pass in an array of expected function types
+// const sampleAllowArray = ['IfStatement', 'BlockStatement'];
+
+export const allowList = (userInput) => {
+    const astType = "IfStatement";
+
+    let hasParserError;
+    let parsedUserInput;
+
+    try {
+        parsedUserInput = acorn.parse(userInput, { ecmaVersion: 2020 });
+        hasParserError = false;
+    } catch (error) {
+        console.log(error);
+        hasParserError = true;
+    }
+
+    if (hasParserError) {
+        return { message: `This program MUST use a ${astType}.`, hasError: true }
+    }
+
+    const hasAstType = traverseAstNodes(parsedUserInput, astType);
+
+    if (!hasAstType) {
+        return { message: `This program MUST use a ${astType}.`, hasError: true }
+    } else {
+        return { message: `Great! You are using ${astType}.`, hasError: false }
+    }
 }

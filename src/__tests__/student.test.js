@@ -4,22 +4,36 @@ import { traverseAstNodes } from "../helpers/methods"
 
 let acorn = require("acorn");
 
-test('Code HAS specified functionality', () => {
+describe('Code successfully parses when functional type if passed', () => {
+    test('Most basic case, setting a variable successfully parses', () => {
 
-    const testParseSetVariable = acorn.parse(setVariable, { ecmaVersion: 2020 });
-    const resultOfTraversing = traverseAstNodes(testParseSetVariable, "VariableDeclaration");
-    expect(resultOfTraversing).toBe(true)
-    
+        const testParseSetVariable = acorn.parse(setVariable, { ecmaVersion: 2020 });
+        const resultOfTraversing = traverseAstNodes(testParseSetVariable, "VariableDeclaration");
+        expect(resultOfTraversing).toBe(true)
 
-    const resultOfTraversing1 = traverseAstNodes(testParseSetVariable, "BlockStatement");
-    expect(resultOfTraversing1).toBe(false)
+        const resultOfTraversing1 = traverseAstNodes(testParseSetVariable, "BlockStatement");
+        expect(resultOfTraversing1).toBe(false)
 
-    const testStringIfStatement = acorn.parse(stringIfStatement, { ecmaVersion: 2020 });
+    });
 
-    const resultStringIfStatement = traverseAstNodes(testStringIfStatement, "IfStatement");
-    expect(resultStringIfStatement).toBe(true)
+    test('Nested functional type successfully parsed', () => {
+        const parsedUserInput = acorn.parse(stringIfStatement, { ecmaVersion: 2020 });
 
-});
+        const resultVariableDeclaration = traverseAstNodes(parsedUserInput, "VariableDeclaration");
+        expect(resultVariableDeclaration).toBe(true)
+
+        const resultBlockStatement = traverseAstNodes(parsedUserInput, "BlockStatement");
+        expect(resultBlockStatement).toBe(true)
+
+        const resultStringIfStatement = traverseAstNodes(parsedUserInput, "IfStatement");
+        expect(resultStringIfStatement).toBe(true)
+
+        const resultWhileStatement = traverseAstNodes(parsedUserInput, "WhileStatement");
+        expect(resultWhileStatement).toBe(false)
+    });
+})
+
+
 
 
 // test('Code MUST HAVE specified functionality', () => {
